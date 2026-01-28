@@ -21,35 +21,46 @@ function App() {
   }, []);
 
   const sendMsg = () => {
-    if (message.trim() === "") return;
+    if (!message.trim()) return;
 
-    const msgData = { username, text: message };
-    socket.emit("send_message", msgData);
+    socket.emit("send_message", {
+      username,
+      text: message,
+    });
+
     setMessage("");
   };
 
-  // Login screen
+  const joinChat = () => {
+    if (!username.trim()) return;
+    setLoggedIn(true);
+  };
+
+  /* 🔐 LOGIN SCREEN (ENTER KEY FIXED — NO FORM) */
   if (!loggedIn) {
     return (
       <div className="login-container">
         <h2>Enter Username</h2>
+
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            if (username.trim() !== "") setLoggedIn(true);
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              joinChat();
+            }
           }}
-        >
-          Join Chat
-        </button>
+          autoFocus
+        />
+
+        <button onClick={joinChat}>Join Chat</button>
       </div>
     );
   }
 
+  /* 💬 CHAT SCREEN */
   return (
     <div className="chat-container">
       <div className="chat-header">LiveConnect™</div>
