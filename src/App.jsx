@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import socket from "./socket";
-import './App.css'
+import "./App.css";
 
 function App() {
+  const [username, setUsername] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
 
@@ -19,32 +21,64 @@ function App() {
   }, []);
 
   const sendMsg = () => {
-    if (message.trim() === "") return; // prevent empty messages
-    socket.emit("send_message", message);
+    if (message.trim() === "") return;
+
+    const msgData = { username, text: message };
+    socket.emit("send_message", msgData);
     setMessage("");
   };
 
-  return (
-    <div>
-      <h1>Live Chat App</h1>
+  // Login screen
+  if (!loggedIn) {
+    return (
+      <div className="login-container">
+        <h2>Enter Username</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <button
+          onClick={() => {
+            if (username.trim() !== "") setLoggedIn(true);
+          }}
+        >
+          Join Chat
+        </button>
+      </div>
+    );
+  }
 
-      <div>
+  return (
+    <div className="chat-container">
+      <div className="chat-header">LiveConnect™</div>
+
+      <div className="chat-box">
         {chat.map((m, i) => (
-          <p key={i}>{m}</p>
+          <div
+            key={i}
+            className={`chat-message ${
+              m.username === username ? "sent" : "received"
+            }`}
+          >
+            {m.username !== username && (
+              <span className="chat-username">{m.username}</span>
+            )}
+            {m.text}
+          </div>
         ))}
       </div>
 
-      <input
-        value={message}
-        placeholder="Type message..."
-        onChange={(e) => setMessage(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            sendMsg();
-          }
-        }}
-      />
-      <button onClick={sendMsg}>Send</button>
+      <div className="input-area">
+        <input
+          value={message}
+          placeholder="Type a message..."
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && sendMsg()}
+        />
+        <button onClick={sendMsg}>Send</button>
+      </div>
     </div>
   );
 }
