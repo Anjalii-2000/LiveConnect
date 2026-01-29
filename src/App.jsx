@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import socket from "./socket";
 import "./App.css";
+import AppLogoImg from "./AppLogo.jpeg";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -40,8 +41,10 @@ function App() {
   if (!loggedIn) {
     return (
       <div className="login-container">
+        <div className="user-header">LiveConnect™</div>
+        <img src={AppLogoImg} alt="image"  />
         <h2>Enter Username</h2>
-
+        
         <input
           type="text"
           placeholder="Username"
