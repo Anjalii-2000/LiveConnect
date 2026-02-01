@@ -37,7 +37,7 @@ function App() {
     setLoggedIn(true);
   };
 
-  /* 🔐 LOGIN SCREEN (ENTER KEY FIXED — NO FORM) */
+  /* LOGIN SCREEN (ENTER KEY FIXED — NO FORM) */
   if (!loggedIn) {
     return (
       <div className="login-container">
@@ -64,7 +64,7 @@ function App() {
     );
   }
 
-  /* 💬 CHAT SCREEN */
+  /* CHAT SCREEN */
   return (
     <div className="chat-container">
       <div className="chat-header">LiveConnect™</div>
