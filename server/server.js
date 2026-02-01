@@ -14,6 +14,9 @@ server.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
 
+app.get("/", (req, res) => {
+  res.send("LiveConnect server is running 🚀");
+});
 
 const io = new Server(server, {
   cors: {
