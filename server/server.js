@@ -33,7 +33,3 @@ io.on("connection", (socket) => {
     console.log("User disconnected: ", socket.id);
   });
 });
-
-server.listen(3001, () => {
-  console.log("Server running on port 3001");
-});
