@@ -68,7 +68,6 @@ function App() {
   return (
     <div className="chat-container">
       <div className="chat-header">LiveConnect™</div>
-         <h1>Hello World</h1>
       <div className="chat-box">
         {chat.map((m, i) => (
           <div
