@@ -41,6 +41,7 @@ function App() {
   if (!loggedIn) {
     return (
       <div className="login-container">
+        
         <div className="user-header">LiveConnect™</div>
         <img src={AppLogoImg} alt="image"  />
         <h2>Enter Username</h2>
@@ -67,7 +68,7 @@ function App() {
   return (
     <div className="chat-container">
       <div className="chat-header">LiveConnect™</div>
-
+         <h1>Hello World</h1>
       <div className="chat-box">
         {chat.map((m, i) => (
           <div
