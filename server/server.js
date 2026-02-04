@@ -15,7 +15,7 @@ server.listen(PORT, () => {
 });
 
 app.get("/", (req, res) => {
-  res.send("LiveConnect server is running 🚀");
+  res.send("LiveConnect™ Server is Running ");
 });
 
 const io = new Server(server, {
